@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# Editor / IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Dependencies
+node_modules/
+vendor/
+
+# Logs and local files
+*.log
+debug.log
+.env
+.env.*
+
+# Backups and archives
+*.sql
+*.zip
+
+# Cache
+.cache/
+.sass-cache/
