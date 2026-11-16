@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Block direct access to this file.
 }
 
+// Load the theme options (ACF Theme Options page).
+require_once get_template_directory() . '/inc/options.php';
+
 /**
  * Theme setup: features WordPress should turn on, and menu locations.
  */
@@ -51,3 +54,13 @@ function cwl_enqueue_assets() {
     );
 }
 add_action( 'wp_enqueue_scripts', 'cwl_enqueue_assets' );
+
+/**
+ * Preload the heading font (Nunito) so the headline doesn't flash in a fallback font.
+ * Runs early in <head>. The crossorigin attribute is required for fonts.
+ */
+function cwl_preload_fonts() {
+    $font = get_template_directory_uri() . '/assets/fonts/nunito-latin-wght-normal.woff2';
+    echo '<link rel="preload" href="' . esc_url( $font ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+}
+add_action( 'wp_head', 'cwl_preload_fonts', 1 );
