@@ -1,0 +1,16 @@
+/* Services block: space between the intro and the grid. */
+.cwl-services__grid {
+    margin-top: var(--space-7);
+    /* 48px */
+}
+
+/* Smaller card title for this block: the "small" H3 (20px). */
+.cwl-services .card h3 {
+    font-size: 1.25rem;
+}
+
+/* The featured card: orange border and a stronger shadow. */
+.card.card--highlight {
+    border-color: var(--wp--preset--color--primary);
+    box-shadow: 0 18px 42px rgba(31, 41, 55, 0.14);
+}

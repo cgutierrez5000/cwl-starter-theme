@@ -1,0 +1,25 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "cwl/services",
+    "title": "CWL Services",
+    "description": "A heading with a responsive grid of service cards.",
+    "category": "design",
+    "icon": "grid-view",
+    "keywords": [
+        "services",
+        "cards",
+        "grid"
+    ],
+    "supports": {
+        "align": [
+            "full"
+        ],
+        "anchor": true
+    },
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "render.php"
+    },
+    "style": "file:./style.css"
+}
