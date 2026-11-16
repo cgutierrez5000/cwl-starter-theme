@@ -16,9 +16,6 @@ require_once get_template_directory() . '/inc/options.php';
 // Load the template helper functions (logos, and more later).
 require_once get_template_directory() . '/inc/template-tags.php';
 
-// Load the block loader (registers every block in /blocks).
-require_once get_template_directory() . '/inc/blocks.php';
-
 /**
  * Theme setup: features WordPress should turn on, and menu locations.
  */
