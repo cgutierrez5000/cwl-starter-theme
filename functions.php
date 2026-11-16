@@ -1,8 +1,17 @@
 <?php
+/**
+ * CWL Starter theme functions.
+ *
+ * @package cwl-starter
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+    exit; // Block direct access to this file.
 }
 
+/**
+ * Theme setup: features WordPress should turn on, and menu locations.
+ */
 function cwl_setup() {
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
@@ -15,6 +24,10 @@ function cwl_setup() {
 }
 add_action( 'after_setup_theme', 'cwl_setup' );
 
+/**
+ * Load the front-end stylesheet.
+ * filemtime() is the version number, so the URL changes whenever the file does.
+ */
 function cwl_enqueue_assets() {
     wp_enqueue_style(
         'cwl-main',
@@ -24,3 +37,13 @@ function cwl_enqueue_assets() {
     );
 }
 add_action( 'wp_enqueue_scripts', 'cwl_enqueue_assets' );
+
+/**
+ * Preload the heading font (Nunito) so the headline doesn't flash in a fallback.
+ * Runs early in <head>. The crossorigin attribute is required for fonts.
+ */
+function cwl_preload_fonts() {
+    $font = get_template_directory_uri() . '/assets/fonts/nunito-latin-wght-normal.woff2';
+    echo '<link rel="preload" href="' . esc_url( $font ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+}
+add_action( 'wp_head', 'cwl_preload_fonts', 1 );
