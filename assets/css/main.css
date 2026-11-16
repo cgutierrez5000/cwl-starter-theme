@@ -186,3 +186,98 @@ a:hover {
     height: auto;
     max-width: 240px;
 }
+
+/* ==========================================================================
+   Buttons. Base class .btn plus one variant: .btn--accent, .btn--outline, .btn--dark.
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    /* Space between the label and an icon. */
+    min-height: 54px;
+    padding: 0 var(--space-5);
+    /* 0 top and bottom, 24px on the sides. */
+    border: 1px solid transparent;
+    /* Reserves space so variants with a border don't change the size. */
+    border-radius: var(--radius-pill);
+    font-family: var(--wp--preset--font-family--body);
+    font-size: 0.875rem;
+    /* 14px */
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    /* A small lift on hover. */
+}
+
+/* Keyboard users need a clear focus ring. Never remove it without a replacement. */
+.btn:focus-visible {
+    outline: 3px solid var(--wp--preset--color--primary-deep);
+    outline-offset: 3px;
+}
+
+/* Accent: the main call to action. Ink text on orange passes contrast (about 5:1). */
+.btn--accent {
+    background: var(--wp--preset--color--primary);
+    color: var(--wp--preset--color--ink);
+}
+
+.btn--accent:hover {
+    color: var(--wp--preset--color--ink);
+    box-shadow: inset 0 0 0 2px var(--wp--preset--color--primary-deep);
+    /* Inner border on hover. */
+}
+
+/* Outline: a secondary action on light backgrounds. */
+.btn--outline {
+    background: transparent;
+    color: var(--wp--preset--color--ink);
+    border-color: currentColor;
+}
+
+.btn--outline:hover {
+    background: var(--wp--preset--color--navy);
+    border-color: var(--wp--preset--color--navy);
+    color: var(--wp--preset--color--canvas);
+}
+
+/* Outline on navy sections: light text and a soft light border. */
+.has-navy-background .btn--outline {
+    color: var(--wp--preset--color--canvas);
+    border-color: color-mix(in srgb, var(--wp--preset--color--canvas) 42%, transparent);
+}
+
+.has-navy-background .btn--outline:hover {
+    background: var(--wp--preset--color--canvas);
+    border-color: var(--wp--preset--color--canvas);
+    color: var(--wp--preset--color--navy);
+}
+
+/* Dark: navy button that turns orange on hover. */
+.btn--dark {
+    background: var(--wp--preset--color--navy);
+    color: var(--wp--preset--color--canvas);
+}
+
+.btn--dark:hover {
+    background: var(--wp--preset--color--primary);
+    color: var(--wp--preset--color--ink);
+}
+
+/* Respect visitors who turn animations off in their system settings. */
+@media (prefers-reduced-motion: reduce) {
+    .btn {
+        transition: none;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+}
