@@ -71,6 +71,12 @@ svg {
     height: auto;
 }
 
+/* Space above and below the page content in the fallback template. */
+main>.container {
+    padding-block: var(--space-8);
+    /* 64px */
+}
+
 /* ==========================================================================
    Layout: the container keeps content to 1240px and adds side gutters.
    ========================================================================== */
