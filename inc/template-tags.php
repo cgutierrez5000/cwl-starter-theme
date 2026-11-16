@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Template helpers: small functions that templates call to print things.
  *
  * @package cwl-starter
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit; // Block direct access to this file.
 }
 
@@ -15,16 +16,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $field ACF field name, e.g. 'site_logo'.
  * @return array|null   The ACF image array (url, alt, width, height), or null if not set.
  */
-function cwl_get_logo_image( $field ) {
+function cwl_get_logo_image($field)
+{
     // If ACF isn't active, get_field() doesn't exist. Return null instead of crashing.
-    if ( ! function_exists( 'get_field' ) ) {
+    if (! function_exists('get_field')) {
         return null;
     }
 
     // The second argument 'option' tells ACF to read from the Theme Options page, not a post.
-    $image = get_field( $field, 'option' );
+    $image = get_field($field, 'option');
 
-    return is_array( $image ) ? $image : null;
+    return is_array($image) ? $image : null;
 }
 
 /**
@@ -36,41 +38,42 @@ function cwl_get_logo_image( $field ) {
  *
  * @param string $variant 'header' or 'footer'.
  */
-function cwl_the_logo( $variant = 'header' ) {
-    $home = esc_url( home_url( '/' ) );
+function cwl_the_logo($variant = 'header')
+{
+    $home = esc_url(home_url('/'));
 
-    if ( 'footer' === $variant ) {
-        $main   = cwl_get_logo_image( 'site_logo_footer' );
+    if ('footer' === $variant) {
+        $main   = cwl_get_logo_image('site_logo_footer');
         $mobile = null; // The footer doesn't need a separate mobile logo.
     } else {
-        $main   = cwl_get_logo_image( 'site_logo' );
-        $mobile = cwl_get_logo_image( 'site_logo_mobile' );
+        $main   = cwl_get_logo_image('site_logo');
+        $mobile = cwl_get_logo_image('site_logo_mobile');
     }
 
     // Fallback: no logo uploaded yet, so show the site name as a text link.
-    if ( ! $main ) {
+    if (! $main) {
         printf(
             '<a class="site-logo site-logo--text" href="%s">%s</a>',
             $home,
-            esc_html( get_bloginfo( 'name' ) )
+            esc_html(get_bloginfo('name'))
         );
         return;
     }
 
     // Alt text from the media library; fall back to the site name.
-    $alt = ! empty( $main['alt'] ) ? $main['alt'] : get_bloginfo( 'name' );
+    $alt = ! empty($main['alt']) ? $main['alt'] : get_bloginfo('name');
 
     // The header logo is at the top of the page, so load it right away. The footer can wait.
-    $loading = ( 'header' === $variant ) ? 'eager' : 'lazy';
+    $loading = ('header' === $variant) ? 'eager' : 'lazy';
 
-    echo '<a class="site-logo site-logo--' . esc_attr( $variant ) . '" href="' . $home . '">';
+    echo '<a class="site-logo site-logo--' . esc_attr($variant) . '" href="' . $home . '">';
     echo '<picture>';
 
     // On screens up to 760px (your mobile breakpoint), the browser picks this image instead.
-    if ( $mobile ) {
+    if ($mobile) {
         printf(
             '<source media="(max-width: 760px)" srcset="%s" width="%d" height="%d">',
-            esc_url( $mobile['url'] ),
+            esc_url($mobile['url']),
             (int) $mobile['width'],
             (int) $mobile['height']
         );
@@ -79,12 +82,44 @@ function cwl_the_logo( $variant = 'header' ) {
     // width and height reserve space so the page doesn't jump while the image loads.
     printf(
         '<img src="%s" alt="%s" width="%d" height="%d" loading="%s" decoding="async">',
-        esc_url( $main['url'] ),
-        esc_attr( $alt ),
+        esc_url($main['url']),
+        esc_attr($alt),
         (int) $main['width'],
         (int) $main['height'],
-        esc_attr( $loading )
+        esc_attr($loading)
     );
 
     echo '</picture></a>';
+}
+
+/**
+ * Print a button from an ACF Link field.
+ *
+ * @param array|null $link  ACF link array: url, title, target. Does nothing if empty.
+ * @param string     $style Button variant: 'accent', 'outline' or 'dark'.
+ */
+function cwl_the_button($link, $style = 'accent')
+{
+    // No link set, or no URL: print nothing.
+    if (! is_array($link) || empty($link['url'])) {
+        return;
+    }
+
+    // Only allow the three variants we have CSS for.
+    $allowed = array('accent', 'outline', 'dark');
+    $style   = in_array($style, $allowed, true) ? $style : 'accent';
+
+    // Links that open in a new tab need rel="noopener noreferrer" so the new page can't control this one.
+    $target = '';
+    if (! empty($link['target']) && '_blank' === $link['target']) {
+        $target = ' target="_blank" rel="noopener noreferrer"';
+    }
+
+    printf(
+        '<a class="btn btn--%s" href="%s"%s>%s</a>',
+        esc_attr($style),
+        esc_url($link['url']),
+        $target, // Built above from fixed strings only.
+        esc_html($link['title'])
+    );
 }

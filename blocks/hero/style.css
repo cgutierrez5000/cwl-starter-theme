@@ -4,6 +4,12 @@
     /* The hero has more space above than other sections. */
 }
 
+/* The optional highlighted words in the heading: lighter weight, brand orange (large text, so it passes contrast on navy). */
+.cwl-hero__highlight {
+    font-weight: 500;
+    color: var(--wp--preset--color--primary);
+}
+
 @media (max-width: 760px) {
     .cwl-hero {
         padding-top: 72px;
