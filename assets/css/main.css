@@ -1,3 +1,12 @@
+/* ==========================================================================
+   CWL Starter: main.css
+   1. Fonts   2. Tokens   3. Reset   4. Layout   5. Typography
+   6. Links   7. Accessibility helpers   8. Logo
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Fonts (self-hosted variable fonts; swap shows text right away)
+   ========================================================================== */
 @font-face {
     font-family: "Nunito";
     src: url("../fonts/nunito-latin-wght-normal.woff2") format("woff2");
@@ -15,7 +24,7 @@
 }
 
 /* ==========================================================================
-   Design tokens that aren't in theme.json: spacing, radii, shadows, layout.
+   2. Design tokens that aren't in theme.json: spacing, radii, layout.
    Values come from docs/tokens.md. Colors and fonts come from theme.json
    as --wp--preset--color--* and --wp--preset--font-family--*.
    ========================================================================== */
@@ -42,7 +51,7 @@
     --gutter: 20px;
 }
 
-/* Mobile gutter */
+/* Smaller side gutter on phones. */
 @media (max-width: 760px) {
     :root {
         --gutter: 16px;
@@ -50,25 +59,51 @@
 }
 
 /* ==========================================================================
-   Reset: a small, modern starting point.
+   3. Reset: a small, modern starting point.
    ========================================================================== */
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
     /* Padding and borders count inside the width. */
+    box-sizing: border-box;
+}
+
+html {
+    /* Stop iOS from resizing text when the phone is rotated. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
     margin: 0;
+    background: var(--wp--preset--color--canvas);
+    color: var(--wp--preset--color--ink);
+    font-family: var(--wp--preset--font-family--body);
+    font-size: 1rem;
+    /* 16px */
+    line-height: 1.6;
 }
 
+/* Media never overflows its box and keeps its proportions. */
 img,
 picture,
-svg {
+svg,
+video {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+/* ==========================================================================
+   4. Layout: the container keeps content to 1240px and adds side gutters.
+   ========================================================================== */
+.container {
+    width: 100%;
+    /* Content width plus both gutters. */
+    max-width: calc(var(--content-width) + 2 * var(--gutter));
+    /* Center it. */
+    margin-inline: auto;
+    padding-inline: var(--gutter);
 }
 
 /* Space above and below the page content in the fallback template. */
@@ -78,29 +113,8 @@ main>.container {
 }
 
 /* ==========================================================================
-   Layout: the container keeps content to 1240px and adds side gutters.
+   5. Typography. Sizes follow docs/tokens.md.
    ========================================================================== */
-.container {
-    width: 100%;
-    max-width: calc(var(--content-width) + 2 * var(--gutter));
-    /* Content width plus both gutters. */
-    margin-inline: auto;
-    /* Center it. */
-    padding-inline: var(--gutter);
-}
-
-/* ==========================================================================
-   Typography. Sizes follow docs/tokens.md.
-   ========================================================================== */
-body {
-    background: var(--wp--preset--color--canvas);
-    color: var(--wp--preset--color--ink);
-    font-family: var(--wp--preset--font-family--body);
-    font-size: 1rem;
-    /* 16px */
-    line-height: 1.6;
-}
-
 h1,
 h2,
 h3,
@@ -109,9 +123,11 @@ h4 {
     font-family: var(--wp--preset--font-family--heading);
     font-weight: 700;
     color: inherit;
+    /* Balances line lengths so headings don't end with one lonely word. */
+    text-wrap: balance;
 }
 
-/* Fluid sizes: clamp(smallest, preferred, largest) scales with the screen width. */
+/* Fluid sizes: clamp(smallest, preferred, largest) scales with screen width. */
 h1 {
     font-size: clamp(3.4rem, 6vw, 6.2rem);
     font-weight: 600;
@@ -125,9 +141,9 @@ h2 {
     letter-spacing: -0.012em;
 }
 
+/* 28px: the "medium" H3. Small (20px) and large (36px) come later as classes. */
 h3 {
     font-size: 1.75rem;
-    /* 28px: the "medium" H3. Small (20px) and large (36px) come later as classes. */
     line-height: 1.2;
 }
 
@@ -162,21 +178,9 @@ small,
     /* 13px */
 }
 
-/* Eyebrow: the small uppercase label above a heading. */
-.eyebrow {
-    font-size: 0.75rem;
-    /* 12px: the minimum text size */
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--wp--preset--color--primary-deep);
-}
-
-/* On navy sections the eyebrow switches to the lighter orange, which passes contrast at small sizes. */
-.has-navy-background .eyebrow {
-    color: var(--wp--preset--color--primary-on-dark);
-}
-
+/* ==========================================================================
+   6. Links
+   ========================================================================== */
 a {
     color: inherit;
     text-underline-offset: 0.2em;
@@ -186,166 +190,34 @@ a:hover {
     color: var(--wp--preset--color--primary-deep);
 }
 
-/* Logos: keep them in proportion and cap the header logo's size. */
-.site-logo img {
-    display: block;
-    height: auto;
-    max-width: 240px;
-}
-
-/* ==========================================================================
-   Buttons. Base class .btn plus one variant: .btn--accent, .btn--outline, .btn--dark.
-   ========================================================================== */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    /* Space between the label and an icon. */
-    min-height: 54px;
-    padding: 0 var(--space-5);
-    /* 0 top and bottom, 24px on the sides. */
-    border: 1px solid transparent;
-    /* Reserves space so variants with a border don't change the size. */
-    border-radius: var(--radius-pill);
-    font-family: var(--wp--preset--font-family--body);
-    font-size: 0.875rem;
-    /* 14px */
-    font-weight: 700;
-    line-height: 1;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    /* A small lift on hover. */
-}
-
-/* Keyboard users need a clear focus ring. Never remove it without a replacement. */
-.btn:focus-visible {
+/* A clear keyboard focus ring for every link, button and form field. */
+:focus-visible {
     outline: 3px solid var(--wp--preset--color--primary-deep);
     outline-offset: 3px;
 }
 
-/* Accent: the main call to action. Ink text on orange passes contrast (about 5:1). */
-.btn--accent {
-    background: var(--wp--preset--color--primary);
-    color: var(--wp--preset--color--ink);
-}
-
-.btn--accent:hover {
-    color: var(--wp--preset--color--ink);
-    box-shadow: inset 0 0 0 2px var(--wp--preset--color--primary-deep);
-    /* Inner border on hover. */
-}
-
-/* Outline: a secondary action on light backgrounds. */
-.btn--outline {
-    background: transparent;
-    color: var(--wp--preset--color--ink);
-    border-color: currentColor;
-}
-
-.btn--outline:hover {
-    background: var(--wp--preset--color--navy);
-    border-color: var(--wp--preset--color--navy);
-    color: var(--wp--preset--color--canvas);
-}
-
-/* Outline on navy sections: light text and a soft light border. */
-.has-navy-background .btn--outline {
-    color: var(--wp--preset--color--canvas);
-    border-color: color-mix(in srgb, var(--wp--preset--color--canvas) 42%, transparent);
-}
-
-.has-navy-background .btn--outline:hover {
-    background: var(--wp--preset--color--canvas);
-    border-color: var(--wp--preset--color--canvas);
-    color: var(--wp--preset--color--navy);
-}
-
-/* Dark: navy button that turns orange on hover. */
-.btn--dark {
-    background: var(--wp--preset--color--navy);
-    color: var(--wp--preset--color--canvas);
-}
-
-.btn--dark:hover {
-    background: var(--wp--preset--color--primary);
-    color: var(--wp--preset--color--ink);
-}
-
-/* Respect visitors who turn animations off in their system settings. */
-@media (prefers-reduced-motion: reduce) {
-    .btn {
-        transition: none;
-    }
-
-    .btn:hover {
-        transform: none;
-    }
+/* ==========================================================================
+   7. Accessibility helpers
+   ========================================================================== */
+/* Hides text visually but keeps it for screen readers. WordPress and
+   plugins expect this exact class name. */
+.screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* ==========================================================================
-   Sections: vertical spacing between page sections.
+   8. Logos: keep them in proportion and cap the header logo's size.
    ========================================================================== */
-.section {
-    padding-block: 84px;
-    /* Mobile: 84px above and below. */
-}
-
-@media (min-width: 761px) {
-    .section {
-        padding-block: 128px;
-        /* Desktop: 128px, from docs/tokens.md. */
-    }
-}
-
-/* Section backgrounds. WordPress also generates .has-navy-background for the theme.json navy,
-   but we define it here so it works in our own templates and blocks. */
-.has-navy-background {
-    background: var(--wp--preset--color--navy);
-    color: var(--wp--preset--color--canvas);
-}
-
-/* ==========================================================================
-   Grid: cards flow into as many columns as fit, no breakpoints needed.
-   Each column is at least 280px wide and shares the leftover space equally.
-   ========================================================================== */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-    gap: var(--space-5);
-    /* 24px between cards. */
-}
-
-/* ==========================================================================
-   Card: a white-ish box with a soft shadow, used for services, process steps, etc.
-   ========================================================================== */
-.card {
-    padding: var(--space-6);
-    /* 32px inside. */
-    background: var(--wp--preset--color--canvas);
-    border: 1px solid var(--wp--preset--color--mist);
-    border-radius: var(--radius-md);
-    /* 18px */
-    box-shadow: 0 10px 30px rgba(31, 41, 55, 0.06);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 22px 48px rgba(31, 41, 55, 0.13);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .card {
-        transition: none;
-    }
-
-    .card:hover {
-        transform: none;
-    }
+.site-logo img {
+    display: block;
+    height: auto;
+    max-width: 240px;
 }
