@@ -1,0 +1,1 @@
+console.log('CWL Starter: main.js loaded');

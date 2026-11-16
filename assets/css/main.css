@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "Nunito";
+    src: url("../fonts/nunito-latin-wght-normal.woff2") format("woff2");
+    font-weight: 200 1000;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Base page styles. Colors and fonts come from theme.json (see docs/tokens.md). */
+
+body {
+    background: var(--wp--preset--color--canvas);
+    color: var(--wp--preset--color--ink);
+    font-family: var(--wp--preset--font-family--body);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--wp--preset--font-family--heading);
+}
