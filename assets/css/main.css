@@ -30,3 +30,10 @@ h3,
 h4 {
     font-family: var(--wp--preset--font-family--heading);
 }
+
+/* Logos: keep them in proportion and cap the header logo's size. */
+.site-logo img {
+    display: block;
+    height: auto;
+    max-width: 240px;
+}

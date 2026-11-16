@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Load the theme options (ACF Theme Options page).
 require_once get_template_directory() . '/inc/options.php';
 
+// Load the template helper functions (logos, and more later).
+require_once get_template_directory() . '/inc/template-tags.php';
+
 /**
  * Theme setup: features WordPress should turn on, and menu locations.
  */

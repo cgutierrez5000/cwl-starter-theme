@@ -16,7 +16,5 @@
 <?php wp_body_open(); ?>
 
 <header class="site-header">
-    <a class="site-header__brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-        <?php bloginfo( 'name' ); ?>
-    </a>
+    <?php cwl_the_logo( 'header' ); ?>
 </header>
