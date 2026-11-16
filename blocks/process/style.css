@@ -1,0 +1,35 @@
+/* Process block: a numbered list laid out as a grid, using the shared .grid rules. */
+.cwl-process__list {
+    margin: var(--space-7) 0 0;
+    /* 48px above, none at the sides or below. */
+    padding: 0;
+    list-style: none;
+    /* We print our own numbers. */
+}
+
+/* Each step: a thin light line above it, on a dark background. */
+.cwl-process__step {
+    padding-top: var(--space-5);
+    border-top: 1px solid color-mix(in srgb, var(--wp--preset--color--canvas) 18%, transparent);
+}
+
+/* The step number: small orange text on navy, so it uses the lighter orange (passes contrast). */
+.cwl-process__number {
+    display: block;
+    margin-bottom: var(--space-3);
+    font-size: 0.75rem;
+    /* 12px: the minimum text size */
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--wp--preset--color--primary-on-dark);
+}
+
+/* Smaller card-style title: the "medium" H3 from the design is 28px, but steps use 20px. */
+.cwl-process__step h3 {
+    font-size: 1.25rem;
+}
+
+/* Body text on navy: slightly softer than the headings (the 0.72 "secondary" level). */
+.cwl-process__step p {
+    opacity: 0.72;
+}
