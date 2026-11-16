@@ -281,3 +281,65 @@ a:hover {
         transform: none;
     }
 }
+
+/* ==========================================================================
+   Sections: vertical spacing between page sections.
+   ========================================================================== */
+.section {
+    padding-block: 84px;
+    /* Mobile: 84px above and below. */
+}
+
+@media (min-width: 761px) {
+    .section {
+        padding-block: 128px;
+        /* Desktop: 128px, from docs/tokens.md. */
+    }
+}
+
+/* Section backgrounds. WordPress also generates .has-navy-background for the theme.json navy,
+   but we define it here so it works in our own templates and blocks. */
+.has-navy-background {
+    background: var(--wp--preset--color--navy);
+    color: var(--wp--preset--color--canvas);
+}
+
+/* ==========================================================================
+   Grid: cards flow into as many columns as fit, no breakpoints needed.
+   Each column is at least 280px wide and shares the leftover space equally.
+   ========================================================================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: var(--space-5);
+    /* 24px between cards. */
+}
+
+/* ==========================================================================
+   Card: a white-ish box with a soft shadow, used for services, process steps, etc.
+   ========================================================================== */
+.card {
+    padding: var(--space-6);
+    /* 32px inside. */
+    background: var(--wp--preset--color--canvas);
+    border: 1px solid var(--wp--preset--color--mist);
+    border-radius: var(--radius-md);
+    /* 18px */
+    box-shadow: 0 10px 30px rgba(31, 41, 55, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 48px rgba(31, 41, 55, 0.13);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}
