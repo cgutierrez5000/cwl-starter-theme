@@ -16,5 +16,8 @@
 <?php wp_body_open(); ?>
 
 <header class="site-header">
-    <?php cwl_the_logo( 'header' ); ?>
+    <div class="container">
+        <?php cwl_the_logo( 'header' ); ?>
+        <!-- your <nav> block stays here -->
+    </div>
 </header>

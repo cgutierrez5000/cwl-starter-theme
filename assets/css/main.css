@@ -71,13 +71,27 @@ svg {
     height: auto;
 }
 
-/* Base page styles. Colors and fonts come from theme.json (see docs/tokens.md). */
+/* ==========================================================================
+   Layout: the container keeps content to 1240px and adds side gutters.
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: calc(var(--content-width) + 2 * var(--gutter));
+    /* Content width plus both gutters. */
+    margin-inline: auto;
+    /* Center it. */
+    padding-inline: var(--gutter);
+}
 
+/* ==========================================================================
+   Typography. Sizes follow docs/tokens.md.
+   ========================================================================== */
 body {
     background: var(--wp--preset--color--canvas);
     color: var(--wp--preset--color--ink);
     font-family: var(--wp--preset--font-family--body);
     font-size: 1rem;
+    /* 16px */
     line-height: 1.6;
 }
 
@@ -85,7 +99,85 @@ h1,
 h2,
 h3,
 h4 {
+    margin: 0 0 var(--space-4);
     font-family: var(--wp--preset--font-family--heading);
+    font-weight: 700;
+    color: inherit;
+}
+
+/* Fluid sizes: clamp(smallest, preferred, largest) scales with the screen width. */
+h1 {
+    font-size: clamp(3.4rem, 6vw, 6.2rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.008em;
+}
+
+h2 {
+    font-size: clamp(2.7rem, 5vw, 4.7rem);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+}
+
+h3 {
+    font-size: 1.75rem;
+    /* 28px: the "medium" H3. Small (20px) and large (36px) come later as classes. */
+    line-height: 1.2;
+}
+
+h4 {
+    font-size: 1.125rem;
+    /* 18px */
+    line-height: 1.3;
+}
+
+/* On phones, a slightly smaller top size for the H1. */
+@media (max-width: 760px) {
+    h1 {
+        font-size: clamp(3.15rem, 15vw, 5rem);
+    }
+}
+
+p {
+    margin: 0 0 var(--space-4);
+}
+
+/* Intro text under a heading. */
+.lead {
+    font-size: 1.125rem;
+    /* 18px */
+    line-height: 1.65;
+}
+
+/* Small print and captions. Never go below 12px. */
+small,
+.small {
+    font-size: 0.8125rem;
+    /* 13px */
+}
+
+/* Eyebrow: the small uppercase label above a heading. */
+.eyebrow {
+    font-size: 0.75rem;
+    /* 12px: the minimum text size */
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--wp--preset--color--primary-deep);
+}
+
+/* On navy sections the eyebrow switches to the lighter orange, which passes contrast at small sizes. */
+.has-navy-background .eyebrow {
+    color: var(--wp--preset--color--primary-on-dark);
+}
+
+a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+}
+
+a:hover {
+    color: var(--wp--preset--color--primary-deep);
 }
 
 /* Logos: keep them in proportion and cap the header logo's size. */
