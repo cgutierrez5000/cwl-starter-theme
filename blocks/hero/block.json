@@ -1,0 +1,26 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "cwl/hero",
+    "title": "CWL Hero",
+    "description": "Large heading section with a short intro and buttons.",
+    "category": "design",
+    "icon": "align-full-width",
+    "keywords": [
+        "hero",
+        "banner",
+        "header"
+    ],
+    "supports": {
+        "align": [
+            "full"
+        ],
+        "anchor": true,
+        "jsx": true
+    },
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "render.php"
+    },
+    "style": "file:./style.css"
+}

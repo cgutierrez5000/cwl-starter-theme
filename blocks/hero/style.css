@@ -1,0 +1,11 @@
+/* Hero block: extra spacing on top of the shared .section and .has-navy-background styles. */
+.cwl-hero {
+    padding-top: 104px;
+    /* The hero has more space above than other sections. */
+}
+
+@media (max-width: 760px) {
+    .cwl-hero {
+        padding-top: 72px;
+    }
+}
